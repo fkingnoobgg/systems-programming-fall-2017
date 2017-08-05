@@ -6,7 +6,7 @@
 // Compile this program with:
 //      cc -std=c99 -Wall -Werror -pedantic -o rot rot.c
 
-#define ROT 13
+int ROT = 13;
 
 //  The rotate function returns the character ROT positions further along the
 //  alphabetic character sequence from c, or c if c is not lower-case
@@ -18,7 +18,13 @@ char rotate(char c)
         {
                 // The ciphered character is ROT positions beyond c,
                 // allowing for wrap-around
+                // c - 'a' produces a number that represents how far away c is from 'a'
+                // %26 handles wrap-around
                 return ('a' + (c - 'a' + ROT) % 26);
+        }
+        else if (isupper(c))
+        {
+                return ('A' + (c - 'A' + ROT) % 26);
         }
         else
         {
@@ -31,22 +37,32 @@ char rotate(char c)
 int main(int argc, char *argv[])
 {
         // Exit with an error if the number of arguments (including
-        // the name of the executable) is not precisely 2
-        if(argc != 2)
+        // the name of the executable) is less than 2
+        if (argc < 2)
         {
-                fprintf(stderr, "%s: program expected 1 argument, but instead received %d\n", argv[0], argc-1);
+                fprintf(stderr, "Usage: rot [# of spaces to shift chars] Text to encrypt");
                 exit(EXIT_FAILURE);
         }
         else
         {
-                // Calculate the length of the first argument
-                int length = strlen(argv[1]);
+                printf("%i\n", atoi(argv[1]));
+                if (isdigit(atoi(argv[1])))
+                {
+                        ROT = atoi(argv[1]);
+                        argv[1] = "";
+                }
 
                 // Loop for every character in the text
-                for(int i = 0; i < length; i++)
+                for (int i = 1; i < argc; i++)
                 {
-                        // Determine and print the ciphered character
-                        printf("%c", rotate(argv[1][i]));
+                        int length = strlen(argv[i]);
+                        for (int j = 0; j < length; j++)
+                        {
+                                // Determine and print the ciphered character
+                                printf("%i %c %c\n", j, argv[i][j], rotate(argv[i][j]));
+                        }
+                        printf("\n"); // add new line for each new word/punctuation
+
                 }
 
                 // Print one final new-line character

@@ -38,6 +38,7 @@ $RECYCLE.BIN/
 # Binaries
 *.obj
 *.exe
+*.o
 
 .Spotlight-V100
 .TemporaryItems

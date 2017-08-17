@@ -72,6 +72,28 @@ int main(int argc, char *argv[])
     }
   }
   else if (strcmp(argv[1], "ordinal") == 0) {
-    
+    for (int i = 2; i < argc; i++) {
+      if (argv[i][0] - '0' == 1 && strlen(argv[i]) == 2) {
+        printf("%sth\n", argv[i]);
+      } else {
+        int numToEval;
+        if (strlen(argv[i]) == 2) {
+          numToEval = argv[i][1];
+        } else {
+          numToEval = argv[i][0];
+        }
+        if (numToEval - '0' == 1) {
+          printf("%sst\n", argv[i]);
+        }
+        else if (numToEval - '0' == 2) {
+          printf("%snd\n", argv[i]);
+        }
+        else if (numToEval - '0' == 3) {
+          printf("%srd\n", argv[i]);
+        } else {
+          printf("%sth\n", argv[i]);
+        }
+      }
+    }
   }
 }

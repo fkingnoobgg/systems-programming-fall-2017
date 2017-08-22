@@ -17,6 +17,41 @@ int maxNumFromArray(int numArr[], int len)
   return max;
 }
 
+char * intToRoman(int numeric) {
+  static char* roman[20];
+  while (numeric > 0) {
+    if (numeric - 100 > 0) {
+      roman[strlen(roman)] = 'C';
+      numeric = numeric - 100;
+    } else if (numeric - 90 > 0) {
+      roman[strlen(roman)] = 'X';
+      roman[strlen(roman)] = 'C';
+      numeric = numeric - 90;
+    } else if (numeric - 50 > 0) {
+      roman[strlen(roman)] = 'L';
+      numeric = numeric - 50;
+    } else if (numeric - 40 > 0) {
+      roman[strlen(roman)] = 'X';
+      roman[strlen(roman)] = 'L';
+      numeric = numeric - 40;
+    } else if (numeric - 10 > 0) {
+      roman[strlen(roman)] = 'X';
+      numeric = numeric - 10;
+    } else if (numeric - 5 > 0) {
+      roman[strlen(roman)] = 'V';
+      numeric = numeric - 5;
+    } else if (numeric - 4 > 0) {
+      roman[strlen(roman)] = 'I';
+      roman[strlen(roman)] = 'V';
+      numeric = numeric - 4;
+    } else if (numeric - 1 > 0) {
+      roman[strlen(roman)] = 'I';
+      numeric = numeric - 1;
+    }
+  }
+  return roman;
+}
+
 int main(int argc, char *argv[])
 {
   if (strcmp(argv[1], "max") == 0) {
@@ -95,5 +130,9 @@ int main(int argc, char *argv[])
         }
       }
     }
+  }
+
+  else if (strcmp(argv[1], "roman") == 0) {
+    printf("%s",intToRoman(atoi(argv[1])));
   }
 }

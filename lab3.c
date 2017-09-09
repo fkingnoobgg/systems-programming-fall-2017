@@ -101,23 +101,35 @@ bool valid_card(char* cardnum) {
   int s2 = 0;
   int cardpos = strlen(cardnum) - 2;
   int even = true;
-  if (isdigit(cardnum[cardpos+1]) {
-    s1 = atoi(cardnum[cardpos+1]);
+  if (isdigit(cardnum[cardpos+1])) {
+    s1 = atoi(&cardnum[cardpos+1]);
   }
-  while (cardlen > 0) {
-    if (even) {
-
-    }
-    else {
-      if (isdigit(cardnum[cardpos]) {
-        s1 = s1 + atoi(cardnum[cardpos]);
+  while (cardpos >= 0) {
+    if (isdigit(cardnum[cardpos]))
+    {
+      int num = cardnum[cardpos] - '0';
+      if (even) {
+        num = num * 2;
+        while(num)
+        {
+          s2 = s2 + num % 10;
+          num /= 10;
+        }
+      }
+      else {
+        s1 = s1 + num;
       }
     }
+
     even = !even;
     cardpos--;
   }
-  if (((s1 + s2) % 10) == 0) {
 
+  if (((s1 + s2) % 10) == 0) {
+    return true;
+  }
+  else {
+    return false;
   }
 }
 
@@ -137,5 +149,8 @@ int main(int argc, char *argv[])
   }
   else if (strcmp(argv[1], "palindrome") == 0) {
     printf("String is palindrome: %s\n", is_palindrome(argv[2]) ? "true" : "false");
+  }
+  else if (strcmp(argv[1], "validcard") == 0) {
+    printf("Card is valid: %s\n", valid_card(argv[2]) ? "true" : "false");
   }
 }
